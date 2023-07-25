@@ -104,7 +104,7 @@ local function decode_vint(buf, len, start)
     result = buf[start] & ~sizemask
 
     for i = 2, len do
-        result = (result << 8) | buf[start + i]
+        result = (result << 8) | buf[start + i - 1]
         sizeunknown = (sizeunknown << 7) | 0x7F
     end
     
@@ -144,7 +144,7 @@ local function decode_vint(buf, len, start)
     result = bwAND(buf[start], (0xFF - sizemask))
 
     for i = 2, len do
-        result = lsh(result, 8) + buf[start + i]
+        result = lsh(result, 8) + buf[start + i - 1]
         sizeunknown = lsh(sizeunknown, 7) + 0x7F
     end
     
