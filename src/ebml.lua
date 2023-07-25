@@ -148,7 +148,7 @@ local function decode_vint(buf, len, start)
         sizeunknown = lsh(sizeunknown, 7) + 0x7F
     end
     
-    return result, sizeunknown == result
+    return math.floor(result), sizeunknown == result
 end
 
 -- get VINT length 
