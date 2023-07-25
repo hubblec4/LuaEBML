@@ -2,7 +2,7 @@
 -- written by hubblec4
 
 
---[[ Lua Verison compatiblity: 
+--[=[ Lua Verison compatiblity: 
     Lua 5.1, Lua 5.2 and LuaJIT are not able to handle Bit operations fully
     Lua 5.3 (and higher, 5.3++) has proper build-in Bit operation support  
     
@@ -15,7 +15,7 @@
     disable LuaXxx: change "-- [[LuaXxx" to "--[[LuaXxx"    
 
     default version is LuaOld
---]]
+--]=]
 
 -- Define some functions for older Lua versions
 -- [[LuaOld start
