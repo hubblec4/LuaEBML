@@ -941,6 +941,20 @@ function ebml_master:find_child(elem_class)
     return self:find_element(elem_class)
 end
 
+-- find next child
+function ebml_master:find_next_child(prev_idx)
+    local id = self.value[prev_idx]:get_context().id
+
+    for i = prev_idx + 1, #self.value do
+        if self.value[i]:get_context().id == id then
+            return self.value[i], i
+        end
+    end
+
+    -- no next child
+    return nil, -1
+end
+
 -- get child
 function ebml_master:get_child(elem_class)
     return self:find_element(elem_class, true)
