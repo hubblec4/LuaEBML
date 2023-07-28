@@ -257,6 +257,18 @@ function ebml_element:is_master()
     return false
 end
 
+-- skip data
+function ebml_element:skip_data(file)
+    -- data size is finite
+    if not self.unknown_data_size then
+        file:seek("cur", self.data_size)
+        return
+    end
+
+    -- data size is infinite, skip with it's own semantic
+    -- TODO:
+end
+
 
 -- -----------------------------------------------------------------------------
 -- EBML Binary type ------------------------------------------------------------
