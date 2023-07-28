@@ -269,6 +269,11 @@ function ebml_element:skip_data(file)
     -- TODO:
 end
 
+-- end position
+function ebml_element:end_position()
+    return self.data_position + self.data_size
+end
+
 
 -- -----------------------------------------------------------------------------
 -- EBML Binary type ------------------------------------------------------------
