@@ -334,7 +334,7 @@ end
 -- EBML String  class
 local ebml_string = ebml_element:new()
 
--- ebml string constructor ------------------------------------------------------
+-- ebml string constructor -----------------------------------------------------
 function ebml_string:new(def_val)
     local elem = {}
     setmetatable(elem, self)
@@ -343,7 +343,7 @@ function ebml_string:new(def_val)
     return elem
 end
 
--- read utf8 data --------------------------------------------------------------
+-- read data -------------------------------------------------------------------
 function ebml_string:read_data(stream, readfully)
     readfully = readfully or SCOPE_ALL_DATA
 
