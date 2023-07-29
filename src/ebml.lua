@@ -206,7 +206,7 @@ local ebml_element = {
     -- unknown_data_size: data size is unknown -> infinity size
     unknown_data_size = false,
     -- value: a var for all EBML type values
-    value = ""
+    value = nil
 }
 
 -- EBML element construtor
@@ -287,7 +287,7 @@ function ebml_binary:new()
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = {} -- init empty array
+    elem.value = "" -- init empty data
     return elem
 end
 
@@ -322,7 +322,7 @@ function ebml_utf8:new(def_val)
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = def_val or ""
+    elem.value = def_val or ""
     return elem
 end
 
@@ -356,7 +356,7 @@ function ebml_string:new(def_val)
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = def_val or ""
+    elem.value = def_val or ""
     return elem
 end
 
@@ -403,7 +403,7 @@ function ebml_uinteger:new(def_val)
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = def_val or 0
+    elem.value = def_val or 0
     return elem
 end
 
@@ -453,7 +453,7 @@ function ebml_integer:new(def_val)
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = def_val or 0
+    elem.value = def_val or 0
     return elem
 end
 
@@ -513,7 +513,7 @@ function ebml_float:new(def_val)
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = def_val or 0.0
+    elem.value = def_val or 0.0
     return elem
 end
 
@@ -569,7 +569,7 @@ function ebml_date:new()
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = 0
+    elem.value = 0
     return elem
 end
 
@@ -860,7 +860,7 @@ function ebml_master:new()
     local elem = {}
     setmetatable(elem, self)
     self.__index = self
-    self.value = {}
+    elem.value = {}
     return elem
 end
 
