@@ -258,16 +258,7 @@ function ebml_element:is_master()
 end
 
 -- skip data
-function ebml_element:skip_data(stream)
-    -- data size is finite
-    if not self.unknown_data_size then
-        stream:seek("cur", self.data_size)
-        return
-    end
-
-    -- data size is infinite, skip with it's own semantic
-    -- TODO:
-end
+-- must defined later
 
 -- end position
 function ebml_element:end_position()
@@ -851,6 +842,31 @@ local function find_next_element(stream, semantic, max_read_size, elem_level, al
   
 
 
+  -- Ebml element
+  -- skip data
+function ebml_element:skip_data(stream)
+    -- data size is finite
+    if not self.unknown_data_size then
+        stream:seek("cur", self.data_size)
+        return
+    end
+
+    -- data size is infinite, skip with it's own semantic
+    local elem, level
+    local semantic = self:get_semantic()
+
+    while true do
+        elem, level = find_next_element(stream, semantic, MAX_DATA_SIZE, 0)
+        if elem == nil then return end
+
+        if level > ELEM_LEVEL_CHILD then
+            
+        end
+        elem:skip_data(stream)
+    end
+end
+
+
 -- -----------------------------------------------------------------------------
 -- EBML Master type ------------------------------------------------------------
 -- -----------------------------------------------------------------------------
@@ -1224,7 +1240,7 @@ end
 
 -- EBML Dummy ------------------------------------------------------------------
 function Dummy:new(dummy_id)
-    local elem = ebml_binary:new()
+    local elem = {}
     setmetatable(elem, self)
     self.__index = self
     self.dummy_id = dummy_id
