@@ -1214,7 +1214,7 @@ end
 
 -- read data - no data should be reading 
 function Void:read_data(stream, readfully)
-    stream:seek("cur", self.data_size) -- skip data
+    self:skip_data(stream)
     return self.data_size
 end
 -- -----------------------------------------------------------------------------
