@@ -258,10 +258,10 @@ function ebml_element:is_master()
 end
 
 -- skip data
-function ebml_element:skip_data(file)
+function ebml_element:skip_data(stream)
     -- data size is finite
     if not self.unknown_data_size then
-        file:seek("cur", self.data_size)
+        stream:seek("cur", self.data_size)
         return
     end
 
