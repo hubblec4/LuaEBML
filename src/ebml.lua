@@ -936,7 +936,9 @@ function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
             -- new: TScopeMode: SCOPE_PARTIAL_DATA for this Master
             -- all non-Master elements will be parsed fully
             -- Master elements only the header is parsed
-            if not (elem:is_master() and readfully == SCOPE_PARTIAL_DATA) then
+            if elem:is_master() and readfully == SCOPE_PARTIAL_DATA then
+                elem:skip_data(stream)
+            else
                 elem:read_data(stream, readfully, elem_level, allow_dummy)
             end
         --end)
