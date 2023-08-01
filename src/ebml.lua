@@ -901,7 +901,7 @@ function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
     end
 
     if elem_level == nil then
-        elem_level = 0
+        elem_level = ELEM_LEVEL_CHILD
     end
 
     if readfully == nil then
