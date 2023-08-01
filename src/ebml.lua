@@ -893,9 +893,9 @@ function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
     end
       
     stream:seek("set", self.data_position)
-    local elem, elem_level = find_next_element(stream, self.get_semantic(), max_read_size, elem_level, allow_dummy)
+    local elem, elem_level, pos = find_next_element(stream, self.get_semantic(), max_read_size, elem_level, allow_dummy)    
       
-    while elem and elem_level <= 0 and max_read_size > 0 do
+    while elem and elem_level <= ELEM_LEVEL_CHILD and max_read_size > 0 do
         if self:data_size_is_finite() and elem:data_size_is_finite() then
             max_read_size = (self.data_position + self.data_size) - (elem.data_position + elem.data_size)
         end
@@ -913,9 +913,14 @@ function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
       
         table.insert(self.value, elem)
       
-        if max_read_size < 1 then break end
+        if max_read_size < 1 then return end
       
-        elem, elem_level = find_next_element(stream, self.get_semantic(), max_read_size, ELEM_LEVEL_CHILD, allow_dummy)
+        elem, elem_level, pos = find_next_element(stream, self.get_semantic(), max_read_size, ELEM_LEVEL_CHILD, allow_dummy)
+    end
+
+    -- last found element is a Sibling
+    if elem_level > ELEM_LEVEL_CHILD then
+        stream:seek("set", pos) -- set file pointer back to elements start
     end
 end
 
