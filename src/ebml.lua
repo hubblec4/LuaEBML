@@ -908,11 +908,10 @@ function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
         readfully = SCOPE_ALL_DATA
     end
 
+    self.value = {} -- init value as an empty table!
     if readfully == SCOPE_NO_DATA then
         return
     end
-
-    self.value = {} -- init value as an empty table!
       
     local max_read_size
     if self.unknown_data_size then
