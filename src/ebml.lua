@@ -692,17 +692,12 @@ local function create_elem_using_semantic(id, semantic, elem_level, allow_dummy,
 end
       
 
--- find next element - returns the found element and it's level
+-- find next element - return@1 the element, return@2 element level, return@3 element position
 local function find_next_element(stream, semantic, max_read_size, elem_level, allow_dummy)
     -- predefines
-    if elem_level == nil then
-        elem_level =  0
-    end
-    if allow_dummy == nil then
-        allow_dummy = true
-    end
+    if elem_level == nil then elem_level = 0 end
+    if allow_dummy == nil then allow_dummy = true end
     
-
     local readed_size = 0
     local id_start = 0
     local found = false
@@ -805,9 +800,7 @@ local function find_next_element(stream, semantic, max_read_size, elem_level, al
       
     while max_read_size >= readed_size do
         find_id()
-        if not found then
-            return nil, elem_level
-        end
+        if not found then return nil, elem_level end
   
         read_size()
         if found then
@@ -825,7 +818,7 @@ local function find_next_element(stream, semantic, max_read_size, elem_level, al
                 or (max_read_size >= id_start + possible_id_len + possible_size_len + elem.data_size)) then
                     elem.data_position = parse_start + id_start + possible_id_len + possible_size_len
                     stream:seek("set", elem.data_position)
-                    return elem, elem_level
+                    return elem, elem_level, parse_start + id_start
                 end
             end
         end
