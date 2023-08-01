@@ -896,32 +896,18 @@ end
 
 -- read data
 function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
-    if allow_dummy == nil then
-        allow_dummy = true
-    end
-
-    if elem_level == nil then
-        elem_level = ELEM_LEVEL_CHILD
-    end
-
-    if readfully == nil then
-        readfully = SCOPE_ALL_DATA
-    end
-
+    if allow_dummy == nil then allow_dummy = true end
+    if elem_level == nil then elem_level = ELEM_LEVEL_CHILD end
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
     self.value = {} -- init value as an empty table!
-    if readfully == SCOPE_NO_DATA then
-        return
-    end
+    if readfully == SCOPE_NO_DATA then return end
       
     local max_read_size
     if self.unknown_data_size then
         max_read_size = MAX_DATA_SIZE
     else
+        if self.data_size == 0 then return end
         max_read_size = self.data_size
-    end
-      
-    if max_read_size == 0 then
-        return
     end
       
     stream:seek("set", self.data_position)
@@ -943,13 +929,9 @@ function ebml_master:read_data(stream, readfully, elem_level, allow_dummy)
             end
         --end)
       
-        if elem_level < ELEM_LEVEL_SIBLING then
-            table.insert(self.value, elem)
-        end
+        table.insert(self.value, elem)
       
-        if elem_level >= ELEM_LEVEL_SIBLING or max_read_size == 0 then
-            break
-        end
+        if max_read_size < 1 then break end
       
         elem, elem_level = find_next_element(stream, self.get_semantic(), max_read_size, ELEM_LEVEL_CHILD, allow_dummy)
     end
