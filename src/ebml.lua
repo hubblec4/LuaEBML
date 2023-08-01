@@ -846,27 +846,16 @@ function ebml_element:skip_data(stream)
     end
 
     -- data size is infinite, skip with it's own semantic
-    local elem, level
+    local elem, level, pos
     local semantic = self:get_semantic()
 
-    -- get id length, return the length of an EBML ID
-    -- this function is currently only here needed
-    local function get_id_len(id)
-        if id <= 0xFF then return 1
-        elseif id <= 0x7FFF then return 2
-        elseif id <= 0x3FFFFF then return 3
-        -- elseif id <= 0x1FFFFFFF then retrun 4
-        else return 4
-        end
-    end
-
     while true do
-        elem, level = find_next_element(stream, semantic, MAX_DATA_SIZE, 0)
+        elem, level, pos = find_next_element(stream, semantic, MAX_DATA_SIZE, 0)
         if elem == nil then return end
 
         if level > ELEM_LEVEL_CHILD then
             -- finish skip data - set file postion back to the start of the element            
-            stream:seek("set", elem.data_position - elem.data_size_len - get_id_len(elem:get_context().id))
+            stream:seek("set", pos)
             return
         end
         elem:skip_data(stream)
