@@ -285,10 +285,10 @@ end
 
 -- read binary data ------------------------------------------------------------
 function ebml_binary:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = "" -- init with the type default value, empty data
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
-        self.value = "" -- init with the type default value, empty data
         return self.data_size
     end
     
@@ -320,7 +320,8 @@ end
 
 -- read utf8 data --------------------------------------------------------------
 function ebml_utf8:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = ""
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
         return self.data_size
@@ -354,7 +355,8 @@ end
 
 -- read data -------------------------------------------------------------------
 function ebml_string:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = ""
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
         return self.data_size
@@ -401,15 +403,14 @@ end
 
 -- read u-integer data
 function ebml_uinteger:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = 0 -- init with the type default value
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
-        self.value = 0 -- init with the type default value
         return self.data_size
     end
 
     local buffer = read_stream(stream, self.data_size)
-    self.value = 0
 
     for i = 1, self.data_size do
         --[[LuaNew
@@ -451,15 +452,14 @@ end
 
 -- read s-integer data
 function ebml_integer:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = 0 -- init with the type default value
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
-        self.value = 0 -- init with the type default value
         return self.data_size
     end
-    
+
     local buffer = read_stream(stream, self.data_size)
-    self.value = 0
 
     --[[LuaNew
     for i = 1, self.data_size do
@@ -511,15 +511,14 @@ end
 
 -- read float data
 function ebml_float:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = 0.0 -- init with the type default value
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
-        self.value = 0 -- init with the type default value
         return self.data_size
     end
-    
+
     local buffer = read_stream(stream, self.data_size)
-    self.value = 0
 
     --[[LuaNew
     if self.data_size == 4 then
@@ -567,15 +566,14 @@ end
 
 -- read date data
 function ebml_date:read_data(stream, readfully)
-    readfully = readfully or SCOPE_ALL_DATA
+    if readfully == nil then readfully = SCOPE_ALL_DATA end
+    self.value = 0 -- init with the type default value
 
     if readfully == SCOPE_NO_DATA or self.data_size == 0 then
-        self.value = 0 -- init with the type default value
         return self.data_size
     end
 
     local buffer = read_stream(stream, self.data_size)
-    self.value = 0
 
     --[[LuaNew
     for i = 1, self.data_size do
