@@ -813,7 +813,8 @@ local function find_next_element(stream, semantic, max_read_size, elem_level, al
   
             if allow_dummy or (not elem:is_dummy()) then
                 if elem:validate_data_size() and (max_read_size == 0 or (elem_level > ELEM_LEVEL_CHILD)
-                or (max_read_size >= id_start + possible_id_len + possible_size_len + elem.data_size)) then
+                or (max_read_size >= id_start + possible_id_len + possible_size_len + elem.data_size)
+                or elem.unknown_data_size) then
                     elem.data_position = parse_start + id_start + possible_id_len + possible_size_len
                     stream:seek("set", elem.data_position)
                     return elem, elem_level, parse_start + id_start
