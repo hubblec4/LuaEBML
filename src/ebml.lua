@@ -693,7 +693,16 @@ end
 -- find next element - return@1 the element, return@2 element level, return@3 element position
 local function find_next_element(stream, semantic, max_read_size, elem_level, allow_dummy)
     -- predefines
-    if elem_level == nil then elem_level = 0 end
+    -- elem_level == -1 -> this is a special case for searching elements on the root level
+    -- normaly, elem_level's < 0 means global element
+    -- so be careful to use "-1", only for root elements
+    local root_search = false
+    if elem_level == nil then elem_level = 0
+    elseif elem_level == -1 then
+        elem_level = ELEM_LEVEL_CHILD
+        root_search = true
+    end
+
     if allow_dummy == nil then allow_dummy = true end
     
     local readed_size = 0
@@ -814,7 +823,7 @@ local function find_next_element(stream, semantic, max_read_size, elem_level, al
             if allow_dummy or (not elem:is_dummy()) then
                 if elem:validate_data_size() and (max_read_size == 0 or (elem_level > ELEM_LEVEL_CHILD)
                 or (max_read_size >= id_start + possible_id_len + possible_size_len + elem.data_size)
-                or elem.unknown_data_size) then
+                or elem.unknown_data_size or root_search) then
                     elem.data_position = parse_start + id_start + possible_id_len + possible_size_len
                     stream:seek("set", elem.data_position)
                     return elem, elem_level, parse_start + id_start
