@@ -996,7 +996,7 @@ function EBML:new()
 end
 
 function EBML:get_context()
-    return {id = 0x1A45DFA3, manda = true, parent = nil}
+    return {id = 0x1A45DFA3, manda = true, parent = nil, name = "EBML"}
 end
 
 function EBML:get_semantic()
@@ -1015,7 +1015,7 @@ function EBMLVersion:new()
 end
 
 function EBMLVersion:get_context()
-    return {id = 0x4286, manda = true, parent = EBML}
+    return {id = 0x4286, manda = true, parent = EBML, name = "EBMLVersion"}
 end
 
 function EBMLVersion:validate_data()
@@ -1033,7 +1033,7 @@ function EBMLReadVersion:new()
 end
 
 function EBMLReadVersion:get_context()
-    return {id = 0x42F7, manda = true, parent = EBML}
+    return {id = 0x42F7, manda = true, parent = EBML, name = "EBMLReadVersion"}
 end
 
 function EBMLReadVersion:validate_data()
@@ -1051,7 +1051,7 @@ function EBMLMaxIDLength:new()
 end
 
 function EBMLMaxIDLength:get_context()
-    return {id = 0x42F2, manda = true, parent = EBML}
+    return {id = 0x42F2, manda = true, parent = EBML, name = "EBMLMaxIDLength"}
 end
 
 function EBMLMaxIDLength:validate_data()
@@ -1069,7 +1069,7 @@ function EBMLMaxSizeLength:new()
 end
 
 function EBMLMaxSizeLength:get_context()
-    return {id = 0x42F3, manda = true, parent = EBML}
+    return {id = 0x42F3, manda = true, parent = EBML, name = "EBMLMaxSizeLength"}
 end
 
 function EBMLMaxSizeLength:validate_data()
@@ -1087,7 +1087,7 @@ function DocType:new()
 end
 
 function DocType:get_context()
-    return {id = 0x4282, manda = true, parent = EBML}
+    return {id = 0x4282, manda = true, parent = EBML, name = "DocType"}
 end
 
 function DocType:validate_data_size()
@@ -1105,7 +1105,7 @@ function DocTypeVersion:new()
 end
 
 function DocTypeVersion:get_context()
-    return {id = 0x4287, manda = true, parent = EBML}
+    return {id = 0x4287, manda = true, parent = EBML, name = "DocTypeVersion"}
 end
 
 function DocTypeVersion:validate_data()
@@ -1123,7 +1123,7 @@ function DocTypeReadVersion:new()
 end
 
 function DocTypeReadVersion:get_context()
-    return {id = 0x4285, manda = true, parent = EBML}
+    return {id = 0x4285, manda = true, parent = EBML, name = "DocTypeReadVersion"}
 end
 
 function DocTypeReadVersion:validate_data()
@@ -1141,7 +1141,7 @@ function DocTypeExtension:new()
 end
 
 function DocTypeExtension:get_context()
-    return {id = 0x4281, manda = false, parent = EBML}
+    return {id = 0x4281, manda = false, parent = EBML, name = "DocTypeExtension"}
 end
 
 function DocTypeExtension:get_semantic()
@@ -1159,7 +1159,7 @@ function DocTypeExtensionName:new()
 end
 
 function DocTypeExtensionName:get_context()
-    return {id = 0x4283, manda = true, parent = DocTypeExtension}
+    return {id = 0x4283, manda = true, parent = DocTypeExtension, name = "DocTypeExtensionName"}
 end
 
 function DocTypeExtensionName:validate_data_size()
@@ -1177,7 +1177,7 @@ function DocTypeExtensionVersion:new()
 end
 
 function DocTypeExtensionVersion:get_context()
-    return {id = 0x4284, manda = true, parent = DocTypeExtension}
+    return {id = 0x4284, manda = true, parent = DocTypeExtension, name = "DocTypeExtensionVersion"}
 end
 
 function DocTypeExtensionVersion:validate_data()
@@ -1201,7 +1201,7 @@ function Void:new()
 end
 
 function Void:get_context()
-    return {id = 0xEC, manda = false, parent = nil}
+    return {id = 0xEC, manda = false, parent = nil, name = "Void"}
 end
 
 -- read data - no data should be reading 
@@ -1221,7 +1221,7 @@ function CRC32:new()
 end
 
 function CRC32:get_context()
-    return {id = 0xBF, manda = false, parent = nil}
+    return {id = 0xBF, manda = false, parent = nil, name = "CRC-32"}
 end
 
 function CRC32:validate_data_size()
@@ -1240,7 +1240,7 @@ function Dummy:new(dummy_id)
 end
 
 function Dummy:get_context()
-    return {id = 0xFF, manda = false, parent = nil}
+    return {id = 0xFF, manda = false, parent = nil, name = "Dummy"}
 end
 
 function Dummy:is_dummy()
