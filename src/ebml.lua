@@ -608,7 +608,7 @@ end
 
 -- get UTC formated
 function ebml_date:get_utc()
-    return os.date("%Y-%m-%d %H:%M:%S", self.value + UNIX_EPOCH_DELAY)
+    return os.date("!%Y-%m-%d %H:%M:%S", math.floor(self.value / 1000000000) + UNIX_EPOCH_DELAY)
 end
 
 
