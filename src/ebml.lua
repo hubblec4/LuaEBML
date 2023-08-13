@@ -257,6 +257,11 @@ function ebml_element:is_master()
     return false
 end
 
+-- is_class: checks if an element ID matches the ID of the given class
+function ebml_element:is_class(class)
+    return self:get_context().id == class:get_context().id
+end
+
 -- skip data
 -- function ebml_element:skip_data(stream)
 -- must be defined later
