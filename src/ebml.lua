@@ -55,7 +55,7 @@ local function get_float(buffer)
     local exponent = bwAND(b1, 0x7F) * 2 + bwAND(b2, 0x80) - 127
     local mantisse = (0x800000 + bwAND(b2, 0x7F) * 2^16 + b3 * 2^8 + b4) / 2^23
 
-    return -1^sign * 2^exponent * mantisse
+    return (-1)^sign * 2^exponent * mantisse
 end
 
 -- get double 64 from a buffer
@@ -66,7 +66,7 @@ local function get_double(buffer)
     local exponent = bwAND(b1, 0x7F) * 2^4 + bwAND(b2, 0xF0) - 1023
     local mantisse = (0x10000000000000 + (b2 % 16) * 2^48 + b3 * 2^40 + b4 * 2^32 + b5 * 2^24 + b6 * 2^16 + b7 * 2^8 + b8) / 2^52
 
-    return -1^sign * 2^exponent * mantisse
+    return (-1)^sign * 2^exponent * mantisse
 end
 
 -- end LuaOld ]]
