@@ -676,6 +676,7 @@ local function create_elem_using_semantic(id, semantic, elem_level, allow_dummy,
         
     -- Parent element - a sibling
     local parent_s = semantic[1]:get_context().parent
+    if parent_s == nil then return nil, elem_level end -- root element has been reached
     if parent_s:get_context().id == id then
         return parent_s:new(), elem_level +1
     end
